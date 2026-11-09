@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<meta name="theme-color" content="#101a20">
+<link rel="icon" href="data:,">
+<title>Neon Coast — Distrito Livre</title>
+<style>
+:root{color-scheme:dark;--ink:#f4f4ec;--muted:#a9b5b1;--lime:#d4ff58;--panel:rgba(13,24,29,.82)}*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#101a20;color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;touch-action:none}#game{position:fixed;inset:0;width:100%;height:100%;display:block}.shade{position:fixed;inset:0;pointer-events:none;background:linear-gradient(180deg,rgba(8,15,20,.46),transparent 25%,transparent 69%,rgba(8,15,20,.32))}.brand{position:fixed;left:clamp(16px,3vw,42px);top:clamp(15px,3vh,34px);display:flex;align-items:center;gap:12px;pointer-events:none}.brandMark{width:37px;height:37px;border:1px solid rgba(212,255,88,.62);border-radius:11px;display:grid;place-items:center;color:var(--lime);font-size:20px;box-shadow:0 0 25px #d4ff5822}.brand b{font-size:13px;letter-spacing:.18em}.brand small{display:block;color:#9eaca8;font-size:9px;letter-spacing:.2em;margin-top:3px}.hud{position:fixed;top:clamp(15px,3vh,34px);right:clamp(16px,3vw,42px);display:flex;gap:10px;align-items:stretch}.card{background:var(--panel);border:1px solid #ffffff19;backdrop-filter:blur(16px);border-radius:13px;padding:11px 15px;box-shadow:0 10px 32px #0002}.stat{min-width:94px}.eyebrow{display:block;font-size:9px;letter-spacing:.16em;color:#9baaa5;text-transform:uppercase}.stat strong{font-size:18px;display:block;margin-top:4px;letter-spacing:.02em}.stat strong em{font-size:11px;color:var(--lime);font-style:normal}.mission{position:fixed;left:clamp(16px,3vw,42px);bottom:clamp(20px,4vh,42px);width:min(310px,calc(100vw - 32px));padding:16px 18px}.missionHead{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}.missionHead strong{font-size:11px;letter-spacing:.14em}.missionHead span{color:var(--lime);font-size:10px}.mission p{font-size:12px;color:#c3ceca;line-height:1.55;margin:5px 0 12px}.progress{height:3px;background:#ffffff1a;border-radius:4px;overflow:hidden}.progress i{height:100%;width:0;display:block;background:var(--lime);transition:width .25s}.hint{position:fixed;right:clamp(18px,3vw,42px);bottom:clamp(20px,4vh,42px);color:#e0e6dfaa;font-size:10px;letter-spacing:.08em;text-align:right;line-height:1.8;text-shadow:0 2px 6px #000}.hint kbd{font:inherit;border:1px solid #ffffff55;padding:3px 6px;border-radius:5px;color:#fff}.toast{position:fixed;left:50%;top:24%;transform:translate(-50%,-12px);opacity:0;transition:.3s;background:#101a20dd;border:1px solid #d4ff5855;border-radius:999px;padding:10px 18px;font-size:11px;letter-spacing:.08em;pointer-events:none}.toast.show{opacity:1;transform:translate(-50%,0)}.touchControls{display:none}.joystick{position:fixed;left:22px;bottom:25px;width:126px;height:126px;border-radius:50%;background:#10202777;border:1px solid #ffffff33;backdrop-filter:blur(8px);touch-action:none}.stick{position:absolute;width:52px;height:52px;left:36px;top:36px;border-radius:50%;background:#d4ff58cc;box-shadow:0 4px 20px #0006;pointer-events:none}.touchButtons{position:fixed;right:22px;bottom:27px;display:flex;align-items:end;gap:12px}.touchBtn{width:62px;height:62px;border:1px solid #ffffff46;border-radius:50%;background:#102027bb;color:white;font-size:11px;font-weight:700;letter-spacing:.08em;backdrop-filter:blur(8px);touch-action:none}.touchBtn.primary{width:76px;height:76px;background:#d4ff58e8;color:#182015;border:0}.touchBtn:active{transform:scale(.94)}.rotate{display:none;position:fixed;inset:0;place-items:center;background:#101a20;color:#dfe8df;text-align:center;padding:30px;font-size:14px;line-height:1.7;z-index:5}@media(max-width:760px){.hud{top:62px;left:12px;right:12px;justify-content:flex-end;gap:6px}.card{padding:9px 11px}.stat{min-width:75px}.stat strong{font-size:15px}.stat .eyebrow{font-size:8px}.mission{bottom:165px;padding:12px 14px;width:min(270px,calc(100vw - 32px))}.mission p{font-size:11px;margin-bottom:9px}.hint{display:none}.touchControls{display:block}.brand b{font-size:11px}.brand small{font-size:8px}.brandMark{width:32px;height:32px}.toast{top:20%;white-space:nowrap}}@media(max-height:500px) and (orientation:landscape){.rotate{display:none}.mission{bottom:14px;left:155px;width:225px;padding:9px 12px}.mission p{font-size:10px;margin:4px 0 7px}.joystick{width:102px;height:102px;left:18px;bottom:16px}.stick{left:25px;top:25px}.touchButtons{right:18px;bottom:15px}.touchBtn{width:52px;height:52px}.touchBtn.primary{width:62px;height:62px}.brand{top:12px}.hud{top:12px}}
+</style>
+</head>
+<body>
+<canvas id="game" aria-label="Jogo 3D isométrico de mundo aberto"></canvas><div class="shade"></div>
+<div class="brand"><div class="brandMark">✳</div><div><b>NEON COAST</b><small>DISTRITO LIVRE · 01</small></div></div>
+<div class="hud"><div class="card stat"><span class="eyebrow">CRÉDITOS</span><strong>$<span id="cash">0</span></strong></div><div class="card stat"><span class="eyebrow">VELOCIDADE</span><strong><span id="speed">0</span> <em>KM/H</em></strong></div><div class="card stat"><span class="eyebrow">ESTADO</span><strong id="mode">A PÉ</strong></div></div>
+<div class="card mission"><div class="missionHead"><strong>✦ &nbsp;CORRIDA DO SOL</strong><span id="count">0 / 4</span></div><p id="objective">Encontre os sinais dourados pela cidade e faça a entrega antes do pôr do sol.</p><div class="progress"><i id="bar"></i></div></div>
+<div class="hint"><kbd>WASD</kbd> mover &nbsp; <kbd>E</kbd> entrar/sair do carro<br><kbd>SHIFT</kbd> acelerar &nbsp; <kbd>ESPAÇO</kbd> buzina</div>
+<div class="touchControls"><div class="joystick" id="joy"><div class="stick" id="stick"></div></div><div class="touchButtons"><button class="touchBtn" id="boost">TURBO</button><button class="touchBtn primary" id="action">ENTRAR</button></div></div>
+<div class="toast" id="toast"></div><div class="rotate">Gire o aparelho para uma experiência melhor.<br>O jogo funciona em qualquer orientação.</div>
+<script>
+(()=>{'use strict';
+const canvas=document.querySelector('#game'),ctx=canvas.getContext('2d');
+let W=0,H=0,DPR=1,S=24,camX=0,camZ=0,last=0,toastTimer=0,cash=0,got=0,beep=0;
+const player={x:0,z:0,car:false,angle:0,vx:0,vz:0};
+const keys=new Set(),joy={x:0,y:0,active:false};
+const pickups=[{x:12,z:-18},{x:-18,z:-12},{x:18,z:12},{x:-12,z:20}].map(p=>({...p,taken:false,phase:Math.random()*7}));
+const buildings=[],trees=[],cars=[];
+let seed=4127;function rand(){seed=(seed*1664525+1013904223)>>>0;return seed/4294967296}
+function resize(){DPR=Math.min(devicePixelRatio||1,2);W=innerWidth;H=innerHeight;canvas.width=Math.round(W*DPR);canvas.height=Math.round(H*DPR);canvas.style.width=W+'px';canvas.style.height=H+'px';S=Math.min(W/30,H/19,30);S=Math.max(12,S)}
+addEventListener('resize',resize);resize();
+const roads=[-25,-15,-5,5,15,25];
+// Hand-built blocks: compact towers and pastel homes frame a generous, drivable street grid.
+for(let ix=0;ix<5;ix++)for(let iz=0;iz<5;iz++){
+ const cx=-20+ix*10,cz=-20+iz*10;
+ if(ix===2&&iz===2)continue;
+ const n=2+Math.floor(rand()*3);
+ for(let j=0;j<n;j++){
+  const w=2.4+rand()*2.2,d=2.3+rand()*2.2;
+  const x=cx+(rand()-.5)*4.3,z=cz+(rand()-.5)*4.3;
+  let h=2+rand()*6;if(rand()>.74)h+=2.5;
+  const palette=['#d9aa7f','#dfd1b3','#96aaa2','#d7c6a9','#a3b6b3','#c68d78','#e6d9c2','#829995'];
+  buildings.push({x,z,w,d,h,color:palette[Math.floor(rand()*palette.length)],roof:['#748682','#947e67','#657773','#b79e7b'][Math.floor(rand()*4)],seed:rand()});
+ }
+}
+for(let i=0;i<38;i++){const x=(rand()-.5)*58,z=(rand()-.5)*58;if(Math.min(...roads.map(r=>Math.abs(x-r)),...roads.map(r=>Math.abs(z-r)))>2.1)trees.push({x,z,h:1.6+rand()*.9,phase:rand()})}
+for(let i=0;i<9;i++)cars.push({x:-24+rand()*48,z:-24+rand()*48,a:rand()*Math.PI*2,color:['#e4ad55','#d85f4e','#3c8b96','#dfe1d5','#554e73'][i%5]});
+function project(x,z,y=0){return {x:W*.5+(x-camX-z+camZ)*.8660254*S,y:H*.51+(x-camX+z-camZ)*.5*S-y*S}}
+function poly(points,fill,stroke=null,lw=1){ctx.beginPath();points.forEach((p,i)=>{const q=project(p[0],p[1],p[2]||0);i?ctx.lineTo(q.x,q.y):ctx.moveTo(q.x,q.y)});ctx.closePath();ctx.fillStyle=fill;ctx.fill();if(stroke){ctx.strokeStyle=stroke;ctx.lineWidth=lw;ctx.stroke()}}
+function line(a,b,color,width){const p=project(a[0],a[1],a[2]||0),q=project(b[0],b[1],b[2]||0);ctx.beginPath();ctx.moveTo(p.x,p.y);ctx.lineTo(q.x,q.y);ctx.strokeStyle=color;ctx.lineWidth=width;ctx.lineCap='round';ctx.stroke()}
+function cube(b){const {x,z,w,d,h,color,roof}=b,x0=x-w/2,x1=x+w/2,z0=z-d/2,z1=z+d/2;
+ // floating afternoon shadow
+ poly([[x0+.38,z0+.35,0],[x1+.65,z0+.35,0],[x1+.65,z1+.65,0],[x0+.38,z1+.65,0]],'#17251f30');
+ // two sunlit facades and rooftop
+ poly([[x1,z0,0],[x1,z1,0],[x1,z1,h],[x1,z0,h]],shade(color,-.19));
+ poly([[x0,z1,0],[x1,z1,0],[x1,z1,h],[x0,z1,h]],shade(color,-.07));
+ poly([[x0,z0,h],[x1,z0,h],[x1,z1,h],[x0,z1,h]],roof);
+ // neat, warm glass windows on both visible walls
+ const cols=Math.max(1,Math.floor(w/1.05)),rows=Math.max(1,Math.floor(h/1.12));
+ for(let c=0;c<cols;c++)for(let r=0;r<rows;r++){
+  const wx=x0+(c+.5)*w/cols,wz=z0+(c+.5)*d/cols,wy=.55+(r+.5)*(h-.45)/rows;
+  poly([[x1,z0+(c+.33)*d/cols,wy-.22],[x1,z0+(c+.68)*d/cols,wy-.22],[x1,z0+(c+.68)*d/cols,wy+.18],[x1,z0+(c+.33)*d/cols,wy+.18]],windowColor(b.seed,r,c));
+  poly([[x0+(c+.33)*w/cols,z1,wy-.22],[x0+(c+.68)*w/cols,z1,wy-.22],[x0+(c+.68)*w/cols,z1,wy+.18],[x0+(c+.33)*w/cols,z1,wy+.18]],windowColor(b.seed,r,c+1));
+ }
+}
+function shade(hex,amt){let n=parseInt(hex.slice(1),16),r=Math.max(0,Math.min(255,(n>>16)+255*amt)),g=Math.max(0,Math.min(255,((n>>8)&255)+255*amt)),b=Math.max(0,Math.min(255,(n&255)+255*amt));return `rgb(${r|0},${g|0},${b|0})`}
+function windowColor(s,r,c){return (r*3+c*7+s*11)%6<2?'#f8d993':'#526e6b'}
+function drawGround(){
+ const g=ctx.createLinearGradient(0,0,W,H);g.addColorStop(0,'#83a896');g.addColorStop(.55,'#789b88');g.addColorStop(1,'#557b71');ctx.fillStyle=g;ctx.fillRect(0,0,W,H);
+ // subtle patchwork park blocks, then asphalt streets
+ for(const x of roads)for(const z of roads){poly([[x-4.2,z-4.2],[x+4.2,z-4.2],[x+4.2,z+4.2],[x-4.2,z+4.2]],(Math.round(x+z)%3===0?'#84a890':'#7d9f89'))}
+ for(const a of roads){poly([[-32,a-1.6],[32,a-1.6],[32,a+1.6],[-32,a+1.6]],'#434f4d');poly([[a-1.6,-32],[a+1.6,-32],[a+1.6,32],[a-1.6,32]],'#434f4d');
+  // pale curbs
+  line([-32,a-1.56,0],[32,a-1.56,0],'#d2c9a7',1.4);line([a-1.56,-32,0],[a-1.56,32,0],'#d2c9a7',1.4);
+ }
+ // lane dashes, in both directions
+ for(const a of roads)for(let t=-30;t<30;t+=5){line([t,a,0],[t+2,a,0],'#d9d0ad88',1.5);line([a,t,0],[a,t+2,0],'#d9d0ad88',1.5)}
+ // scenic waterfront promenade at the southern edge
+ poly([[-32,30],[-26,30],[-26,32],[-32,32]],'#64a9a9');line([-32,29.8,0],[-26,29.8,0],'#e1ddc2',2);
+}
+function palm(t){const base=project(t.x,t.z),tip=project(t.x,t.z,t.h);ctx.strokeStyle='#665746';ctx.lineWidth=Math.max(2,S*.1);ctx.beginPath();ctx.moveTo(base.x,base.y);ctx.lineTo(tip.x,tip.y);ctx.stroke();
+ for(let k=0;k<6;k++){const a=k*Math.PI/3+t.phase;ctx.beginPath();ctx.moveTo(tip.x,tip.y);ctx.quadraticCurveTo(tip.x+Math.cos(a)*S*.35,tip.y+Math.sin(a)*S*.17,tip.x+Math.cos(a)*S*.72,tip.y+Math.sin(a)*S*.31);ctx.strokeStyle=k%2?'#416b50':'#527e58';ctx.lineWidth=Math.max(2,S*.13);ctx.stroke()}
+}
+function drawCar(x,z,angle,color,scale=1){
+ const fw=1.12*scale,sw=.57*scale;
+ function pos(a,b,h=0){return [x+Math.cos(angle)*a-Math.sin(angle)*b,z+Math.sin(angle)*a+Math.cos(angle)*b,h]}
+ // tires, chassis, canopy
+ poly([pos(-fw,-sw,.09),pos(fw,-sw,.09),pos(fw,sw,.09),pos(-fw,sw,.09)],'#26312f');
+ poly([pos(-fw*.87,-sw*.82,.23),pos(fw*.88,-sw*.82,.23),pos(fw*.88,sw*.82,.23),pos(-fw*.87,sw*.82,.23)],color);
+ poly([pos(-.38,-sw*.66,.53),pos(.44,-sw*.66,.53),pos(.44,sw*.66,.53),pos(-.38,sw*.66,.53)],'#b9d1c3');
+ // windscreen on the nose and soft highlight
+ poly([pos(.46,-sw*.61,.28),pos(fw*.76,-sw*.61,.24),pos(fw*.76,sw*.61,.24),pos(.46,sw*.61,.28)],'#d9dbbf');
+ const p=project(x,z,.62);ctx.beginPath();ctx.arc(p.x,p.y,S*.29*scale,0,Math.PI*2);ctx.fillStyle='#fff5d5';ctx.fill();
+}
+function drawPickup(p,t){const bob=Math.sin(t*2.7+p.phase)*.12,pt=project(p.x,p.z,1.1+bob);ctx.save();ctx.translate(pt.x,pt.y);ctx.rotate(t+p.phase);ctx.shadowColor='#ffe07a';ctx.shadowBlur=18;ctx.fillStyle='#ffe07a';ctx.beginPath();ctx.moveTo(0,-S*.43);ctx.lineTo(S*.3,0);ctx.lineTo(0,S*.43);ctx.lineTo(-S*.3,0);ctx.closePath();ctx.fill();ctx.restore();const foot=project(p.x,p.z,0);ctx.beginPath();ctx.ellipse(foot.x,foot.y,S*.48,S*.2,0,0,Math.PI*2);ctx.fillStyle='#ffe07a33';ctx.fill()}
+function drawPlayer(){if(player.car)return;const p=project(player.x,player.z,.3);ctx.save();ctx.translate(p.x,p.y);ctx.fillStyle='#15211e55';ctx.beginPath();ctx.ellipse(0,S*.18,S*.25,S*.12,0,0,7);ctx.fill();ctx.fillStyle='#e7bb72';ctx.beginPath();ctx.arc(0,-S*.16,S*.17,0,7);ctx.fill();ctx.fillStyle='#e96f4d';ctx.beginPath();ctx.ellipse(0,S*.08,S*.19,S*.29,0,0,7);ctx.fill();ctx.strokeStyle='#dfbf94';ctx.lineWidth=S*.07;ctx.beginPath();ctx.moveTo(-S*.12,S*.1);ctx.lineTo(-S*.22,S*.35);ctx.moveTo(S*.12,S*.1);ctx.lineTo(S*.22,S*.35);ctx.stroke();ctx.restore()}
+function drawMinimap(){const size=Math.min(110,W*.24),x=W-size-20,y=H*.5-size/2;ctx.save();ctx.globalAlpha=.91;ctx.fillStyle='#152321d9';ctx.beginPath();ctx.roundRect(x,y,size,size,12);ctx.fill();ctx.save();ctx.beginPath();ctx.roundRect(x+5,y+5,size-10,size-10,9);ctx.clip();ctx.translate(x+size/2,y+size/2);const k=size/66;ctx.scale(k,k);ctx.translate(-camX,-camZ);ctx.fillStyle='#718f7e';ctx.fillRect(-32,-32,64,64);ctx.fillStyle='#515b58';roads.forEach(r=>{ctx.fillRect(-32,r-1.5,64,3);ctx.fillRect(r-1.5,-32,3,64)});buildings.forEach(b=>{ctx.fillStyle='#b9aa8b';ctx.fillRect(b.x-b.w/2,b.z-b.d/2,b.w,b.d)});pickups.filter(p=>!p.taken).forEach(p=>{ctx.fillStyle='#ffe07a';ctx.beginPath();ctx.arc(p.x,p.z,1.2,0,7);ctx.fill()});ctx.fillStyle='#ec7650';ctx.beginPath();ctx.arc(player.x,player.z,1.8,0,7);ctx.fill();ctx.restore();ctx.strokeStyle='#ffffff25';ctx.lineWidth=1;ctx.beginPath();ctx.roundRect(x,y,size,size,12);ctx.stroke();ctx.restore()}
+function render(t){ctx.setTransform(DPR,0,0,DPR,0,0);ctx.clearRect(0,0,W,H);drawGround();
+ const items=[];buildings.forEach(b=>items.push({d:b.x+b.z+.01,type:'b',o:b}));trees.forEach(o=>items.push({d:o.x+o.z,type:'t',o}));cars.forEach(o=>items.push({d:o.x+o.z,type:'c',o}));if(!player.car)items.push({d:ownCar.x+ownCar.z+.02,type:'own',o:ownCar});pickups.filter(p=>!p.taken).forEach(o=>items.push({d:o.x+o.z+.02,type:'p',o}));items.push({d:player.x+player.z+.03,type:'player'});items.sort((a,b)=>a.d-b.d);
+ for(const q of items){if(q.type==='b')cube(q.o);else if(q.type==='t')palm(q.o);else if(q.type==='c')drawCar(q.o.x,q.o.z,q.o.a,q.o.color,.85);else if(q.type==='own')drawCar(q.o.x,q.o.z,player.angle,'#e96f4d');else if(q.type==='p')drawPickup(q.o,t);else if(player.car)drawCar(player.x,player.z,player.angle,'#e96f4d');else drawPlayer()}
+ // warm evening bloom
+ const vg=ctx.createRadialGradient(W*.53,H*.42,Math.min(W,H)*.18,W*.53,H*.42,Math.max(W,H)*.72);vg.addColorStop(0,'#ffe8bd09');vg.addColorStop(1,'#07121948');ctx.fillStyle=vg;ctx.fillRect(0,0,W,H);drawMinimap();
+}
+let ownCar={x:2,z:0};
+function blocked(x,z){if(Math.abs(x)>30||Math.abs(z)>30)return true;return buildings.some(b=>Math.abs(x-b.x)<b.w/2+.38&&Math.abs(z-b.z)<b.d/2+.38)}
+function move(dx,dz){const nx=player.x+dx,nz=player.z+dz;if(!blocked(nx,player.z))player.x=nx;if(!blocked(player.x,nz))player.z=nz}
+function showToast(text){const el=document.querySelector('#toast');el.textContent=text;el.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>el.classList.remove('show'),2100)}
+function toggleCar(){
+ if(!player.car){const d=Math.hypot(player.x-ownCar.x,player.z-ownCar.z);if(d>2.65){showToast('Aproxime-se do seu carro para entrar');return}player.x=ownCar.x;player.z=ownCar.z;player.car=true;showToast('Carro pronto — pé no acelerador!')}
+ else{player.car=false;player.x+=Math.cos(player.angle+Math.PI/2)*1.25;player.z+=Math.sin(player.angle+Math.PI/2)*1.25;ownCar.x=player.x-Math.cos(player.angle)*.1;ownCar.z=player.z-Math.sin(player.angle)*.1;showToast('Você saiu do carro')}
+ document.querySelector('#mode').textContent=player.car?'DIRIGINDO':'A PÉ';document.querySelector('#action').textContent=player.car?'SAIR':'ENTRAR';
+}
+function axis(){let x=joy.x,y=joy.y;if(keys.has('a')||keys.has('arrowleft'))x-=1;if(keys.has('d')||keys.has('arrowright'))x+=1;if(keys.has('w')||keys.has('arrowup'))y+=1;if(keys.has('s')||keys.has('arrowdown'))y-=1;const l=Math.hypot(x,y);if(l>1){x/=l;y/=l}return [x,y]}
+function update(dt,t){const [ix,iy]=axis(),mx=ix-iy,mz=-ix-iy,mag=Math.min(1,Math.hypot(ix,iy));let speed=0;
+ if(player.car){speed=mag*(keys.has('shift')||keys.has('boost')?12:8.2);if(mag>.05){player.angle=Math.atan2(mz,mx);const step=speed*dt;move(mx/Math.max(1,Math.hypot(mx,mz))*step,mz/Math.max(1,Math.hypot(mx,mz))*step);ownCar.x=player.x;ownCar.z=player.z}}
+ else{speed=mag*(keys.has('shift')||keys.has('boost')?5.8:4.15);if(mag>.05){player.angle=Math.atan2(mz,mx);const step=speed*dt;move(mx/Math.max(1,Math.hypot(mx,mz))*step,mz/Math.max(1,Math.hypot(mx,mz))*step)}}
+ camX+=(player.x-camX)*Math.min(1,dt*5);camZ+=(player.z-camZ)*Math.min(1,dt*5);
+ for(const p of pickups){if(!p.taken&&Math.hypot(p.x-player.x,p.z-player.z)<1.1){p.taken=true;got++;cash+=250;document.querySelector('#cash').textContent=cash.toLocaleString('pt-BR');document.querySelector('#count').textContent=`${got} / 4`;document.querySelector('#bar').style.width=`${got*25}%`;showToast(got===4?'Entrega completa! +$250 bônus':'Sinal coletado! +$250');if(got===4){cash+=250;document.querySelector('#cash').textContent=cash.toLocaleString('pt-BR');document.querySelector('#objective').textContent='Boa! A costa é sua. Explore o distrito, dirija e curta o pôr do sol.'}}}
+ document.querySelector('#speed').textContent=Math.round(speed*7.4);render(t);
+}
+function frame(ms){const t=ms/1000,dt=Math.min(.04,last?((ms-last)/1000):.016);last=ms;update(dt,t);requestAnimationFrame(frame)}requestAnimationFrame(frame);
+addEventListener('keydown',e=>{const k=e.key.toLowerCase();if(['arrowup','arrowdown','arrowleft','arrowright',' '].includes(k))e.preventDefault();if(!keys.has(k)&&k==='e')toggleCar();if(k===' '&&!e.repeat){beep=1;showToast('PÓÓÓM!');setTimeout(()=>beep=0,250)}keys.add(k)});
+addEventListener('keyup',e=>keys.delete(e.key.toLowerCase()));addEventListener('blur',()=>keys.clear());
+document.querySelector('#action').addEventListener('pointerdown',e=>{e.preventDefault();toggleCar()});
+const joyEl=document.querySelector('#joy'),stick=document.querySelector('#stick');
+function joyMove(e){const r=joyEl.getBoundingClientRect(),cx=r.left+r.width/2,cy=r.top+r.height/2,dx=e.clientX-cx,dy=e.clientY-cy,lim=r.width*.34,d=Math.hypot(dx,dy),f=d>lim?lim/d:1;joy.x=dx*f/lim;joy.y=-dy*f/lim;stick.style.transform=`translate(${dx*f}px,${dy*f}px)`}
+joyEl.addEventListener('pointerdown',e=>{joy.active=true;joyEl.setPointerCapture(e.pointerId);joyMove(e)});joyEl.addEventListener('pointermove',e=>{if(joy.active)joyMove(e)});function joyEnd(){joy.active=false;joy.x=joy.y=0;stick.style.transform='translate(0,0)'}joyEl.addEventListener('pointerup',joyEnd);joyEl.addEventListener('pointercancel',joyEnd);
+const boost=document.querySelector('#boost');boost.addEventListener('pointerdown',e=>{e.preventDefault();keys.add('boost');boost.setPointerCapture(e.pointerId)});['pointerup','pointercancel','lostpointercapture'].forEach(ev=>boost.addEventListener(ev,()=>keys.delete('boost')));
+})();
+</script>
+</body>
+</html>
